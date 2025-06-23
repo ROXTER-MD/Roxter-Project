@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROXTER STORE - Konfigurasi Game Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .product-category {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-category:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .category-title i {
+            margin-right: 15px;
+            font-size: 2rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            border-color: var(--secondary);
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .features-list {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .features-list li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            background: #f1f1f1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-method i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+        
+        .buy-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .buy-btn i {
+            margin-right: 8px;
+        }
+        
+        .note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: var(--dark);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .contact-link {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: modalopen 0.5s;
+        }
+        
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px)}
+            to {opacity: 1; transform: translateY(0)}
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--dark);
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ROXTER STORE</div>
+            <div class="tagline">Konfigurasi Game Premium untuk Pengalaman Bermain Terbaik</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Android Config Section -->
+        <section class="product-category">
+            <h2 class="category-title"><i class="fas fa-crown"></i> CONFIG ROXTER ANDROID</h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG ROXTER V1</h3>
+                    <div class="product-price">Rp 50.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE DEVICE</li>
+                        <li>BOSTER DEVICE</li>
+                        <li>SUPPORT ANDRO 7-15</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG ROXTER V1', 50000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG ROXTER V2</h3>
+                    <div class="product-price">Rp 65.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE DEVICE</li>
+                        <li>BOSTER DEVICE</li>
+                        <li>SUPPORT ANDRO 7-15</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG ROXTER V2', 65000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG ROXTER V3</h3>
+                    <div class="product-price">Rp 75.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE DEVICE</li>
+                        <li>BOSTER DEVICE</li>
+                        <li>SUPPORT ANDRO 7-15</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG ROXTER V3', 75000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG ROXTER V4</h3>
+                    <div class="product-price">Rp 85.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE DEVICE</li>
+                        <li>BOSTER DEVICE</li>
+                        <li>SUPPORT ANDRO 7-15</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG ROXTER V4', 85000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG ROXTER V5</h3>
+                    <div class="product-price">Rp 100.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE DEVICE</li>
+                        <li>BOSTER DEVICE</li>
+                        <li>SUPPORT ANDRO 7-15</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG ROXTER V5', 100000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>❗ FREE UPDATE TO CONFIG FILE ❗</strong>
+            </div>
+        </section>
+        
+        <!-- iOS Config Section -->
+        <section class="product-category">
+            <h2 class="category-title"><i class="fas fa-mobile-alt"></i> CONFIG ROXTER iOS</h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG iOS V1</h3>
+                    <div class="product-price">Rp 60.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>SUPPORT iOS 10-18</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG iOS V1', 60000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG iOS V2</h3>
+                    <div class="product-price">Rp 80.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>SUPPORT iOS 10-18</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG iOS V2', 80000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG iOS V3</h3>
+                    <div class="product-price">Rp 110.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>SUPPORT iOS 10-18</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG iOS V3', 110000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG iOS V4</h3>
+                    <div class="product-price">Rp 130.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>SUPPORT iOS 10-18</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG iOS V4', 130000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG iOS V5</h3>
+                    <div class="product-price">Rp 150.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>SUPPORT iOS 10-18</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG iOS V5', 150000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>❗ FREE UPDATE TO CONFIG FILE ❗</strong>
+            </div>
+        </section>
+        
+        <!-- PC Config Section -->
+        <section class="product-category">
+            <h2 class="category-title"><i class="fas fa-desktop"></i> CONFIG ROXTER PC</h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG PC V1</h3>
+                    <div class="product-price">Rp 65.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE MOUSE</li>
+                        <li>KEYBORD RESPONSE</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG PC V1', 65000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG PC V2</h3>
+                    <div class="product-price">Rp 85.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE MOUSE</li>
+                        <li>KEYBORD RESPONSE</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG PC V2', 85000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG PC V3</h3>
+                    <div class="product-price">Rp 115.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE MOUSE</li>
+                        <li>KEYBORD RESPONSE</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG PC V3', 115000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG PC V4</h3>
+                    <div class="product-price">Rp 135.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE MOUSE</li>
+                        <li>KEYBORD RESPONSE</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG PC V4', 135000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <h3 class="product-name">CONFIG PC V5</h3>
+                    <div class="product-price">Rp 155.000</div>
+                    <ul class="features-list">
+                        <li>AIM BOT</li>
+                        <li>AIM ASSITS</li>
+                        <li>AIM LOCK</li>
+                        <li>AIM PERCISION</li>
+                        <li>LESS RECOIL</li>
+                        <li>DAMAGE UPGRADE</li>
+                        <li>SPEED RUN HERO</li>
+                        <li>FIRE RATE UPGRADE</li>
+                        <li>OPTIMIZE MOUSE</li>
+                        <li>KEYBORD RESPONSE</li>
+                        <li>DLL</li>
+                    </ul>
+                    <div class="payment-methods">
+                        <span class="payment-method"><i class="fas fa-wallet"></i> DANA</span>
+                        <span class="payment-method"><i class="fas fa-money-bill-wave"></i> GO-PAY</span>
+                        <span class="payment-method"><i class="fas fa-qrcode"></i> QRIS</span>
+                    </div>
+                    <button class="buy-btn" onclick="openModal('CONFIG PC V5', 155000)">
+                        <i class="fas fa-shopping-cart"></i> BELI SEKARANG
+                    </button>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>❗ FREE UPDATE TO CONFIG FILE ❗</strong>
+            </div>
+        </section>
+        
+        <div class="note" style="text-align: center; margin-top: 40px;">
+            <p>Untuk melanjutkan pembayaran, silakan kunjungi: <a href="https://roxterpayment.netlify.app/" target="_blank">https://roxterpayment.netlify.app/</a></p>
+        </div>
+    </div>
+    
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title">Formulir Pembelian</h2>
+            
+            <div id="formContainer">
+                <form id="purchaseForm" onsubmit="submitForm(event)">
+                    <input type="hidden" id="productName" name="productName">
+                    <input type="hidden" id="productPrice" name="productPrice">
+                    
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Nomor WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentMethod">Metode Pembayaran</label>
+                        <select id="paymentMethod" name="paymentMethod" class="form-control" required>
+                            <option value="">Pilih metode pembayaran</option>
+                            <option value="DANA">DANA</option>
+                            <option value="GO-PAY">GO-PAY</option>
+                            <option value="QRIS">QRIS (Semua Bank)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Catatan (Opsional)</label>
+                        <textarea id="notes" name="notes" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> KIRIM PEMESANAN
+                    </button>
+                </form>
+            </div>
+            
+            <div id="successMessage" class="success-message">
+                <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                <h3>Pemesanan Berhasil!</h3>
+                <p>Terima kasih telah memesan <span id="successProduct"></span>.</p>
+                <p>Kami telah mengirim detail pembayaran ke email Anda.</p>
+                <p>Silakan lanjutkan pembayaran di: <a href="https://roxterpayment.netlify.app/" target="_blank">https://roxterpayment.netlify.app/</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 ROXTER STORE. All rights reserved.</p>
+            <p>Untuk pertanyaan lebih lanjut, hubungi: <a href="mailto:maulanagg577@gmail.com" class="contact-link">maulanagg577@gmail.com</a></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Modal Functions
+        function openModal(productName, productPrice) {
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = productPrice;
+            document.getElementById('purchaseModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Reset form and show it
+            document.getElementById('purchaseForm').reset();
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        function closeModal() {
+            document.getElementById('purchaseModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('purchaseModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // Form Submission
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const formData = new FormData(document.getElementById('purchaseForm'));
+            const productName = formData.get('productName');
+            const productPrice = formData.get('productPrice');
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const paymentMethod = formData.get('paymentMethod');
+            const notes = formData.get('notes');
+            
+            // Here you would normally send this data to your server
+            // For demonstration, we'll just show the success message
+            
+            // Set success message with product name
+            document.getElementById('successProduct').textContent = productName;
+            
+            // Hide form, show success message
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // In a real application, you would send this data to your server
+            // and handle the email notification there
+            console.log('Purchase Details:', {
+                productName,
+                productPrice,
+                name,
+                email,
+                phone,
+                paymentMethod,
+                notes
+            });
+            
+            // Simulate sending email (in a real app, this would be a server-side function)
+            simulateEmailNotification(productName, productPrice, name, email, phone, paymentMethod, notes);
+        }
+        
+        function simulateEmailNotification(productName, productPrice, name, email, phone, paymentMethod, notes) {
+            // This is just for demonstration
+            // In a real application, you would send this data to your server
+            // which would then send an actual email
+            
+            const emailContent = `
+                <h1>Pemesanan Baru: ${productName}</h1>
+                <p><strong>Nama Pembeli:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Nomor WhatsApp:</strong> ${phone}</p>
+                <p><strong>Produk:</strong> ${productName}</p>
+                <p><strong>Harga:</strong> Rp ${Number(productPrice).toLocaleString('id-ID')}</p>
+                <p><strong>Metode Pembayaran:</strong> ${paymentMethod}</p>
+                <p><strong>Catatan:</strong> ${notes || 'Tidak ada catatan'}</p>
+                <p>Silakan hubungi pembeli untuk konfirmasi lebih lanjut.</p>
+            `;
+            
+            console.log('Email would be sent to maulanagg577@gmail.com with content:', emailContent);
+            
+            // Also simulate sending a confirmation email to the customer
+            const customerEmailContent = `
+                <h1>Terima kasih atas pesanan Anda!</h1>
+                <p>Berikut detail pesanan Anda:</p>
+                <p><strong>Produk:</strong> ${productName}</p>
+                <p><strong>Harga:</strong> Rp ${Number(productPrice).toLocaleString('id-ID')}</p>
+                <p>Silakan lanjutkan pembayaran di: <a href="https://roxterpayment.netlify.app/">https://roxterpayment.netlify.app/</a></p>
+                <p>Jika Anda memiliki pertanyaan, silakan balas email ini.</p>
+            `;
+            
+            console.log('Confirmation email would be sent to', email, 'with content:', customerEmailContent);
+        }
+    </script>
+</body>
+</html>
